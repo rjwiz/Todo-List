@@ -97,7 +97,6 @@
                 cursor: pointer;
                 transition: 0.4s;
                 outline: none;
-                margin-left:30px;
             }
 
             .task-delete__btn{
