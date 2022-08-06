@@ -59,10 +59,10 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        $task = Task::find($id);
-        return view('task.edit', compact('task'));
+        $task = Task::find($request->id);
+        return view('edit', ['form' => $task]);
     }
 
     /**
@@ -72,15 +72,14 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+
+    public function update($request, $task)
     {
-        $update = [
-            'name' => $request->name,
-        ];
-        Task::where('id', $id)->update($update);
+        $result = $task->fill([
+        'name' => $request->name
+        ])->save();
         return redirect()->route('index');
     }
-
     /**
      * Remove the specified resource from storage.
      *

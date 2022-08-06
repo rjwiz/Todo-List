@@ -25,18 +25,17 @@
                     <td>
                         {{ $task->created_at }}
                     </td>
-                    <form action="{{ route('update', ['id' => $task->id]) }}" method="post" class="task-update__inner">
+                    <form action="{{ route('update', ['id' => $task->id]) }}" method="post">
                         @csrf
-                    </form>
-                    <input type="hidden" value="{{ old('name', $task->name) }}" name="_token">
+                        <input type="hidden" name="_token">
                     <td>
-                        <input type="text" value="{{ old('name', $task->name) }}"
-                        name="name">
+                        <input type="text" value="{{ old('name', $task->name) }}" name="name">
                     </td>
                     <td>
                         <button class="task-update__button">更新</button>
                     </td>
-                        <td>
+                    </form>
+                    <td>
                         <form action="{{ route('delete', ['id' => $task->id]) }}" method="post">
                         @csrf
                             <button type="submit" class="task-delete__btn">削除</button>
