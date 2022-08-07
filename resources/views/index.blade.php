@@ -3,7 +3,11 @@
 @section('content')
     <p class="title">Todo List</h2>
     <div class="todo">
-        <div class="task-store">
+        @if ($errors->has('name'))
+        <span class="invalid-feedback" role="alert">
+            {{ $errors->first('name') }}
+        </span>
+        @endif
             <form method="post" action="{{ route('store') }}"> 
             @csrf 
                 <input type="text" name="name" class="task-store__input">
@@ -25,20 +29,19 @@
                     <td>
                         {{ $task->created_at }}
                     </td>
-                    <form action="{{ route('update', ['id' => $task->id]) }}" method="post">
+                    <form action="{{ route('update', [$task->id]) }}" method="post">
                         @csrf
-                        <input type="hidden" name="_token">
                     <td>
-                        <input type="text" value="{{ old('name', $task->name) }}" name="name">
+                        <input type="text" value="{{ old('name', $task->name) }}" name='name' class="task-update__input">
                     </td>
                     <td>
-                        <button class="task-update__button">更新</button>
+                        <input type="submit" value="更新" class="task-update__btn">
                     </td>
                     </form>
                     <td>
                         <form action="{{ route('delete', ['id' => $task->id]) }}" method="post">
                         @csrf
-                            <button type="submit" class="task-delete__btn">削除</button>
+                            <input type="submit" class="task-delete__btn" value="削除">
                         </form>
                     </td>
                 </tr>

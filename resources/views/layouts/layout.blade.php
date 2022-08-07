@@ -12,6 +12,11 @@
                 font-family: 'Nunito', sans-serif;
                 font-weight: 20
             }
+            
+
+            ul{
+                list-style: none;
+            }
 
             .container{
                 background-color: #2d197c;
@@ -85,7 +90,17 @@
                 outline: none;
             }
 
-            .task-update__button{
+            .task-update__input{
+                width: 80%;
+                padding: 5px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                appearance: none;
+                font-size: 14px;
+                outline: none;
+            }
+
+            .task-update__btn{
                 text-align: left;
                 border: 2px solid #fa9770;
                 font-size: 12px;

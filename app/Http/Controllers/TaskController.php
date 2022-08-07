@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
-use App\Http\Requests\StoreTask;
+use App\Http\Requests\StoreRequest;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -35,34 +35,10 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         Task::create($request->all());
         return redirect()->route('index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $task = Task::find($id);
-        return view('task.show', compact('task'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Request $request)
-    {
-        $task = Task::find($request->id);
-        return view('edit', ['form' => $task]);
     }
 
     /**
@@ -73,11 +49,17 @@ class TaskController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function update($request, $task)
+        public function edit(Request $request, $id)
     {
-        $result = $task->fill([
-        'name' => $request->name
-        ])->save();
+        $task = Task::find($request->id);
+        return view('update', ['form' => $task]);
+    }
+    
+    public function update(Request $request ,$id)
+    {
+        $form = $request->all();
+        unset($form['_token']);
+        Task::where('id', $request->id)->update($form);
         return redirect()->route('index');
     }
     /**
