@@ -2,7 +2,7 @@
 
 @section('content')
     <div class='head'>
-        <p class="title">Todo List</p>
+        <p class="title">タスク検索</p>
         <div class="auth">
             <p class="auth-user"><?php $user = Auth::user(); ?>「{{ $user->name }}」でログイン中</p>
             <form method="post" action="{{ route('logout') }}">
@@ -11,36 +11,33 @@
             </form>
         </div>
     </div>
-    <div class="task-search__btn">
-        <a href="{{ url('/search') }}">タスク検索</a>
-    </div>
     <div class="todo">
         @if ($errors->has('name'))
         <span class="invalid-feedback" role="alert">
             {{ $errors->first('name') }}
         </span>
         @endif
-            <form method="post" action="{{ route('store') }}">
+        <form method="post" action="{{ route('find') }}">
             @csrf
-                <input type="text" name="name" class="task-store__input">
-                <select class="category-control" name="category">
-                    @foreach (Config::get('category.tag_name') as $key =>$val)
-                        <option value="{{ $key }}">{{ $val }}</option>
-                    @endforeach
-                </select>
-                <input type="submit" value="追加" class="task-store__btn">
-            </form>
-        </div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>作成日</th>
-                    <th>タスク名</th>
-                    <th>タグ</th>
-                    <th>更新</th>
-                    <th>削除</th>
-                </tr>
-            </thead>
+            <input type="text" name="name" class="task-store__input">
+            <select class="category-control" name="category">
+                @foreach (Config::get('category.tag_name') as $key =>$val)
+                <option value="{{ $key }}">{{ $val }}</option>
+                @endforeach
+            </select>
+            <input type="submit" value="検索" class="task-store__btn">
+        </form>
+    </div>
+    @if (@isset($item))
+    <table class="table">
+        <thead>
+            <tr>
+                <th>作成日</th>
+                <th>タスク名</th>
+                <th>更新</th>
+                <th>削除</th>
+            </tr>
+        </thead>
             <tbody>
                 @foreach ($tasks as $task)
                 <tr>
@@ -70,8 +67,11 @@
                         </form>
                     </td>
                 </tr>
-            @endforeach
+                @endforeach
             </tbody>
-        </table>
+    @endif
+    </table>
+    <div class="back__btn">
+        <a href="{{ url('/home') }}">戻る</a>
     </div>
 @endsection

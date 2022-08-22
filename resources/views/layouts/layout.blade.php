@@ -18,6 +18,34 @@
                 list-style: none;
             }
 
+            .head{
+                display:flex;
+                justify-content:space-between;
+            }
+
+            .auth{
+                display: flex;
+                align-items: center;
+            }
+
+            .auth-user{
+                margin-right:20px;
+            }
+
+            .logout__btn{
+                text-align: left;
+                border: 2px solid #e60033;
+                font-size: 12px;
+                color: #e60033;
+                background-color: #fff;
+                font-weight: bold;
+                padding: 8px 16px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: 0.4s;
+                outline: none;
+            }
+
             .container{
                 background-color: #2d197c;
                 height: 100vh;
@@ -41,17 +69,41 @@
                 font-size: 24px;
             }
 
+            .task-search__btn{
+                margin-bottom: 20px;
+            }
+
+            .task-search__btn a{
+                font-size: 14px;
+                padding: 8px 10px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                background-color: #fff;
+                color: #ffd900;
+                border: 2px solid #ffd900;
+                text-decoration: none;
+            }
+
             .task-store{
                 justify-content: space-between;
                 margin-bottom: 30px;
             }
 
             .task-store__input{
-                width: 80%;
-                padding: 5px;
+                width: 70%;
+                padding: 8px 16px;
                 border-radius: 5px;
                 border: 1px solid #ccc;
                 appearance: none;
+                font-size: 14px;
+                outline: none;
+            }
+
+            .category-control{
+                margin: 0 10px;
+                padding: 8px 10px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
                 font-size: 14px;
                 outline: none;
             }
@@ -126,6 +178,20 @@
                 cursor: pointer;
                 transition: 0.4s;
                 outline: none;
+            }
+
+            .back__btn a{
+                text-align: left;
+                border: 2px solid #00BFFF;
+                font-size: 12px;
+                color: #00BFFF;
+                background-color: #fff;
+                font-weight: bold;
+                padding: 8px 16px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: 0.4s;
+                text-decoration: none;
             }
             
 

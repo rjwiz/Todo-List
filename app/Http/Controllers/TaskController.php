@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Http\Requests\StoreRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -17,6 +18,10 @@ class TaskController extends Controller
     {
         $tasks = Task::all();
         return view('index', compact('tasks'));
+        if(Auth::attempt(['email'=>$email,
+        'password'=>$password])){
+        $text = Auth::user()->name.'でログイン中';
+        }
     }
 
     /**
@@ -38,7 +43,7 @@ class TaskController extends Controller
     public function store(StoreRequest $request)
     {
         Task::create($request->all());
-        return redirect()->route('index');
+        return redirect()->route('home');
     }
 
     /**
@@ -48,7 +53,7 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
+    
         public function edit(Request $request, $id)
     {
         $task = Task::find($request->id);
@@ -60,17 +65,37 @@ class TaskController extends Controller
         $form = $request->all();
         unset($form['_token']);
         Task::where('id', $request->id)->update($form);
-        return redirect()->route('index');
+        Task::where('category', $request->category)->update($form);
+        return redirect()->route('home');
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function delete($id)
     {
         $task = Task::destroy($id);
-        return redirect()->route('index');
+        return redirect()->route('home');
     }
+
+    public function tasksearch()
+    {
+        $tasks = Task::all();
+        return view('search');
+    }
+
+    public function find()
+    {
+        
+        return view('find', ['input' => '']);
+    }
+
+    public function search(Request $request)
+    {
+        $task = Task::where('name', 'LIKE BINARY',"%{$request->input}%")->first();
+        $param = [
+            'input' => $request->input,
+            'task' => $task
+        ];
+        return view('search', $param);
+    }
+
+
 }
