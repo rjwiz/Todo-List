@@ -55,7 +55,7 @@
                         <td>
                             <select class="category-control" value="{{ old('category', $task->category) }}" name="category">
                                 @foreach (Config::get('category.tag_name') as $key =>$val)
-                                <option value="{{ old('category', $task->category) }}">{{ $val }}</option>
+                                    <option value="{{ $key }}">{{ $val }}</option>
                                 @endforeach
                             </select>
                         </td>

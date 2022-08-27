@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\Tag;
+
 use App\Http\Requests\StoreRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +24,8 @@ class TaskController extends Controller
         'password'=>$password])){
         $text = Auth::user()->name.'でログイン中';
         }
+        $categories = Category::with('category')->get();
+        return view('index', ['categories'=>$categories]);
     }
 
     /**
@@ -97,5 +101,17 @@ class TaskController extends Controller
         return view('search', $param);
     }
 
+    /**リレーション確認用*/
+    public function test()
+    {
+        $tasks = Task::all();
+        return view('tasktest', ['tasks' => $tasks]);
+    }
+
+        public function relate(Request $request)
+    {
+        $tasks = Task::with('tag')->get();
+        return view('relation', ['tasks'=>$tasks]);
+    }
 
 }

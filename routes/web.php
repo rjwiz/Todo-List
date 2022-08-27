@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,9 +32,16 @@ Route::post('/update/{id}', [TaskController::class, 'update'])->name('update');
 Route::post('/delete/{id}', [TaskController::class, 'delete'])->name('delete');
 
 Route::get('/search',[TaskController::class, 'tasksearch']);
+Route::get('/search',[TagController::class, 'index']);
 
 Route::get('/find', [TaskController::class,'find'])->name('find');
 
 Route::post('/find', [TaskController::class, 'search'])->name('find');
+
+/**動作確認用*/
+
+Route::get('/relation', [TaskController::class, 'relate']);
+
+Route::get('/test', [TaskController::class, 'test']);
 
 require __DIR__.'/auth.php';
