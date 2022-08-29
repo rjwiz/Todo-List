@@ -9,7 +9,8 @@ class Task extends Model
 {
     protected $fillable = [
         'id',
-        'name'
+        'name',
+        'tag_id'
     ];
 
     public function getDetail()

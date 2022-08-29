@@ -19,58 +19,38 @@
         @endif
         <form method="post" action="{{ route('find') }}">
             @csrf
-            <input type="text" name="name" class="task-store__input">
-            <select class="category-control" name="tag_id">
-                @foreach (Config::get('category.tag_id') as $key =>$val)
-                <option value="{{ $key }}">{{ $val }}</option>
-                @endforeach
-            </select>
+            <input type="text" name="input" value="{{ $input }}" class="task-store__input">
             <input type="submit" value="検索" class="task-store__btn">
         </form>
     </div>
-    @if (@isset($item))
     <table class="table">
-        <thead>
-            <tr>
-                <th>作成日</th>
-                <th>タスク名</th>
-                <th>更新</th>
-                <th>削除</th>
-            </tr>
-        </thead>
-            <tbody>
-                @foreach ($tasks as $task)
-                <tr>
-                    <td>
-                        {{ $task->created_at }}
-                    </td>
-                    <form action="{{ route('update', [$task->id]) }}" method="post">
-                        @csrf
-                        <td>
-                            <input type="text" value="{{ old('name', $task->name) }}" name='name' class="task-update__input">
-                        </td>
-                        <td>
-                            <select class="category-control" value="{{ old('category', $task->tag_id) }}" name="tag_id">
-                                @foreach (Config::get('category.tag_name') as $key =>$val)
-                                <option value="{{ old('category', $task->tag_id) }}">{{ $val }}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                        <td>
-                            <input type="submit" value="更新" class="task-update__btn">
-                        </td>
-                    </form>
-                    <td>
-                        <form action="{{ route('delete', ['id' => $task->id]) }}" method="post">
-                        @csrf
-                            <input type="submit" class="task-delete__btn" value="削除">
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-    @endif
+    @if (@isset($tasks))
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>created_at</th>
+            <th>updated_at</th>
+            <th>tag_id</th>
+        </tr>
+        <tr>
+            <td>
+                {{$task->id}}
+            </td>
+            <td>
+                {{$task->name}}
+            </td>
+            <td>
+                {{$task->created_at}}
+            </td>
+            <td>
+                {{$task->updated_at}}
+            </td>
+            <td>
+                {{$task->tag_id}}
+            </td>
+        </tr>
     </table>
+    @endif
     <div class="back__btn">
         <a href="{{ url('/home') }}">戻る</a>
     </div>

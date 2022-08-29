@@ -31,12 +31,10 @@ Route::post('/edit/{id}', [TaskController::class, 'edit'])->name('edit');
 Route::post('/update/{id}', [TaskController::class, 'update'])->name('update');
 Route::post('/delete/{id}', [TaskController::class, 'delete'])->name('delete');
 
-Route::get('/search',[TaskController::class, 'tasksearch']);
-Route::get('/search',[TagController::class, 'index']);
 
+Route::get('/search', [TaskController::class,'search'])->name('search');
 Route::get('/find', [TaskController::class,'find'])->name('find');
-
-Route::post('/find', [TaskController::class, 'search'])->name('find');
+Route::post('/find', [TaskController::class, 'tasksearch'])->name('tasksearch');
 
 /**動作確認用*/
 

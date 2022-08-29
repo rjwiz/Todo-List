@@ -23,7 +23,7 @@
             <form method="post" action="{{ route('store') }}">
             @csrf
                 <input type="text" name="name" class="task-store__input">
-                <select class="category-control" name="category">
+                <select class="category-control" name="tag_id">
                     @foreach (Config::get('category.tag_name') as $key =>$val)
                         <option value="{{ $key }}">{{ $val }}</option>
                     @endforeach
@@ -53,9 +53,9 @@
                             <input type="text" value="{{ old('name', $task->name) }}" name='name' class="task-update__input">
                         </td>
                         <td>
-                            <select class="category-control" value="{{ old('category', $task->category) }}" name="category">
+                            <select class="category-control" value="{{ old('tag_id', $task->tag_id) }}" name="tag_id">
                                 @foreach (Config::get('category.tag_name') as $key =>$val)
-                                    <option value="{{ $key }}">{{ $val }}</option>
+                                <option value="{{ $key }}">{{ $val }}</option>
                                 @endforeach
                             </select>
                         </td>

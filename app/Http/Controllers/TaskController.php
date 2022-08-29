@@ -24,8 +24,8 @@ class TaskController extends Controller
         'password'=>$password])){
         $text = Auth::user()->name.'でログイン中';
         }
-        $categories = Category::with('category')->get();
-        return view('index', ['categories'=>$categories]);
+        $tags = Tag::with('tag')->get();
+        return view('index', ['tags'=>$tags]);
     }
 
     /**
@@ -69,7 +69,7 @@ class TaskController extends Controller
         $form = $request->all();
         unset($form['_token']);
         Task::where('id', $request->id)->update($form);
-        Task::where('category', $request->category)->update($form);
+        Task::where('tag_id', $request->tag)->update($form);
         return redirect()->route('home');
     }
 
@@ -79,19 +79,16 @@ class TaskController extends Controller
         return redirect()->route('home');
     }
 
-    public function tasksearch()
+    public function search()
     {
-        $tasks = Task::all();
         return view('search');
     }
 
-    public function find()
+	public function find()
     {
-        
         return view('find', ['input' => '']);
     }
-
-    public function search(Request $request)
+    public function tasksearch(Request $request)
     {
         $task = Task::where('name', 'LIKE BINARY',"%{$request->input}%")->first();
         $param = [
