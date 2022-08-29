@@ -24,7 +24,7 @@ class TaskController extends Controller
         'password'=>$password])){
         $text = Auth::user()->name.'でログイン中';
         }
-        $tags = Tag::with('tag')->get();
+        $tags = Tag::with('tag_name')->get();
         return view('index', ['tags'=>$tags]);
     }
 
@@ -90,7 +90,7 @@ class TaskController extends Controller
     }
     public function tasksearch(Request $request)
     {
-        $task = Task::where('name', 'LIKE BINARY',"%{$request->input}%")->first();
+        $task = Task::where('name', 'LIKE BINARY',"%{$request->input}%")->get();
         $param = [
             'input' => $request->input,
             'task' => $task

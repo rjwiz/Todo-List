@@ -17,14 +17,13 @@
             {{ $errors->first('name') }}
         </span>
         @endif
-        <form method="post" action="{{ route('find') }}">
+        <form method="post" action="{{ route('tasksearch') }}">
             @csrf
-            <input type="text" name="input" value="{{ $input }}" class="task-store__input">
+            <input type="text" name="name" class="task-store__input">
             <input type="submit" value="検索" class="task-store__btn">
         </form>
     </div>
     <table class="table">
-    @if (@isset($tasks))
         <tr>
             <th>id</th>
             <th>name</th>
@@ -32,6 +31,7 @@
             <th>updated_at</th>
             <th>tag_id</th>
         </tr>
+        @if (@isset($task))
         <tr>
             <td>
                 {{$task->id}}
